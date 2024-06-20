@@ -1,0 +1,4 @@
+(library
+ (name jsoml)
+ (preprocess
+  (pps ppx_deriving.show)))
