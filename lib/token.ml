@@ -6,6 +6,7 @@ type t =
   | Colon
   | Comma
   | Str of string
-  | Number of int
+  | Number of (int * string option)
   | Boolean of bool
+  | Null
 [@@deriving show]

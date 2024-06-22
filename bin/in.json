@@ -8,5 +8,7 @@
     {
       "sub-key2": "sub-value2"
     }
-  ]
+  ],
+  "key4": true,
+  "key5": false
 }

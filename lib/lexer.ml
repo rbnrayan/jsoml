@@ -1,7 +1,7 @@
 type t = string
 
-let init src = src
-let from_in_channel chan = init (In_channel.input_all chan)
+let make src = src
+let from_in_channel chan = make (In_channel.input_all chan)
 
 let rec tokenize l =
   match get_next_token l with Some tok, l -> tok :: tokenize l | None, _ -> []
@@ -24,7 +24,7 @@ and get_next_token l =
     | ch when is_whitespace ch -> get_next_token sub
     | _ -> (
         match get_next_boolean_token l with
-        | Some tok, sub -> (Some tok, sub)
+        | (Some _, _) as res -> res
         | None, _ -> failwith "Unknown token")
 
 and get_next_str_token l =
@@ -45,7 +45,7 @@ and get_next_number_token l =
   let length = String.length l in
   let number_length = String.length number in
   let sub = String.sub l number_length (length - number_length) in
-  (Some (Token.Number (int_of_string number)), sub)
+  (Some (Token.Number (int_of_string number, None)), sub)
 
 and get_next_boolean_token l =
   let is_whitespace_or_comma ch = is_whitespace ch || ch = ',' in
